@@ -2,7 +2,7 @@
   "name": "think-demo",
   "description": "application created by thinkjs",
   "version": "1.0.0",
-  "author": "17070667",
+  "author": "saucxs@163.com",
   "scripts": {
     "start": "node development.js",
     "test": "THINK_UNIT_TEST=1 nyc ava test/ && nyc report --reporter=html",
