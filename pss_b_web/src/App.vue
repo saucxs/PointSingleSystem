@@ -5,8 +5,18 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
-  name: 'App'
+    name: 'App',
+    computed: {
+        ...mapGetters(["userInfo"])
+    },
+    data(){
+
+    },
+    mounted() {
+
+    },
 }
 </script>
 

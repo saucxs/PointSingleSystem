@@ -23,13 +23,18 @@
 </template>
 <script>
 import axios from 'axios';
-
+import { mapGetters } from 'vuex';
 export default {
   name: "VHeader",
   data() {
     return {
         userInfo:""
     };
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo'
+    ])
   },
   methods: {
     logout() {

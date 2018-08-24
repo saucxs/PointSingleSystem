@@ -18,7 +18,8 @@ exports.cache = {
   redis: {
     handle: redisCache,
     host: '127.0.0.1',
-    port: 6379
+    port: 6379,
+    password: '123456'
   }
 };
 // exports.cache = {
@@ -53,7 +54,7 @@ exports.model = {
     host: 'localhost',
     port: '3306',
     user: 'root',
-    password: 'dxky500!',
+    password: '123456',
     dateStrings: true
   }
 };
@@ -68,13 +69,14 @@ exports.session = {
     cookie: {
       name: 'thinkjs',
       keys: ['werwer', 'werwer'],
-      signed: true
+      signed: true,
     }
   },
   redis: {
     handle: redisSession,
     host: '127.0.0.1',
-    port: 6379
+    port: 6379,
+    password: '123456'
   }
 };
 
