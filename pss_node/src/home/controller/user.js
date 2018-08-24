@@ -4,6 +4,7 @@ module.exports = class extends Base {
     let {username, password} = this.post();
     const salt = 'gshl';
     password = think.md5(salt + password);
+    console.log(password,'111111111111111111111111111111111111111111111111');
     try {
       let user = await this.model('user').where({
         username,
@@ -40,9 +41,9 @@ module.exports = class extends Base {
   }
 
   async changepassAction () {
-    let { 
-      username, 
-      oldpassword, 
+    let {
+      username,
+      oldpassword,
       newpassword
     } = this.post()
     try {

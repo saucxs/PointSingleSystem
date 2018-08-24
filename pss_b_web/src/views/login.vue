@@ -48,7 +48,7 @@ export default {
          var password = _this.password;
          var param = {
                 username : username,
-                password : _this.hashMap(password)
+                password : password
          }
          console.log(param,'param');
           if(username && password){
@@ -60,7 +60,7 @@ export default {
                 }
             }).catch(function(err){
                 console.log(err);
-            
+
             });
          }
        }

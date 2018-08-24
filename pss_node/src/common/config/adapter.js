@@ -1,6 +1,6 @@
-const redisCache = require('@suning/think-cache-redis');
+const redisCache = require('think-cache-redis');
 const nunjucks = require('think-view-nunjucks');
-const redisSession = require('@suning/think-session-redis');
+const redisSession = require('think-session-redis');
 const mysql = require('think-model-mysql');
 const {Console, File, DateFile} = require('think-logger3');
 const path = require('path');

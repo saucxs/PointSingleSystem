@@ -33,16 +33,20 @@ export default {
   },
   methods: {
     logout() {
-      location.href = '/index/loginOut.htm';
+        axios.post('/user/logout').then(function(res){
+          console.log(res,'res');
+        }).catch(function(err){
+            console.log(err,'err');
+        });
     }
   },
   created(){
    var _this = this;
    axios.post('/user/queryuser').then(function(res){
-        _this.userInfo = res.data.data;  
-        console.log(_this.userInfo,'_this.userInfo');   
+        _this.userInfo = res.data.data;
+        console.log(_this.userInfo,'_this.userInfo');
     }).catch(function(err){
-        console.log(err,'err');    
+        console.log(err,'err');
     });
   }
 };
