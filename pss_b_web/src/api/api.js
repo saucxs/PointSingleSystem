@@ -2,6 +2,7 @@
 // 引入vue和axios
 import Vue from "vue";
 import axios from "axios";
+import router from '../router'
 
 import {
     serveUrl,
@@ -12,21 +13,17 @@ import {
 // 继承vue的原型方法
 Vue.prototype.axios = axios;
 
-// 开发环境调试用户信息
-axios.interceptors.request.use(config => {
-    if (process.env.NODE_ENV === 'development') {
-        config.headers["cust_num"] = "7000374810";
-    }
-    return config;
-});
-
-
 axios.interceptors.response.use(
     response => {
         let data = response.data;
-        if (data.idsIntercepted) {
+        console.log(data,'data');
+        if (!data.data) {
             //   登陆成功的回调地址
-            this.$router.push({path: '/login'});
+            router.replace({
+                path: '/login',
+                query: {redirect: router.currentRoute.fullPath}
+            })
+            return data;
         } else {
             return data;
         }
@@ -40,8 +37,14 @@ axios.interceptors.response.use(
 export default {
     // API请求example
     getUserInfo: params => {
-        return axios.post("/member/info/query.htm", params, postConfig);
+        return axios.post("/user/queryuser", params);
     },
+    login: params => {
+        return axios.post("/user/login", params)
+    },
+    logOut: params => {
+        return axios.post("/user/logout", params)
+    }
 
 
 

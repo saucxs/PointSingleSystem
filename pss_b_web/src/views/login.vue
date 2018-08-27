@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
 const crypto = require('crypto');
 const codeHash = crypto.createHash('md5');
 
@@ -38,6 +38,10 @@ export default {
     };
   },
    methods: {
+       ...mapActions([
+           "login",
+           "getUserInfo"
+       ]),
        hashMap(item){
           codeHash.update(item);
           return codeHash.digest('hex');
@@ -52,16 +56,17 @@ export default {
          }
          console.log(param,'param');
           if(username && password){
-            axios.post('/user/login',param)
-            .then(function(res){
-                console.log(res);
-                if(res.data.errno == 0 ){
-                    _this.$router.push({ path: '/home/orderManagement' })
-                }
-            }).catch(function(err){
-                console.log(err);
-
-            });
+              this.login(param).then(res => {
+                  console.log(res,'res');
+                  if(res.errno == 0 ){
+                      _this.$router.push({ path: '/home/orderManagement' });
+                      _this.getUserInfo().then(res => {
+                          console.log(res,'bbbbbbbbbbbbbbbbbb');
+                      })
+                  }else{
+                      console.log('aaaa');
+                  }
+              })
          }
        }
    }

@@ -17,6 +17,24 @@ Vue.config.productionTip = false
 Vue.use(Vuex);
 Vue.use(ElementUI);
 
+router.beforeEach((to, from, next) => {
+    if(store.getters.userInfo){
+        store.dispatch("getUserInfo", {}).then(response => {
+            if(!response.data){
+                next({
+                    path: '/login',
+                    query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
+                })
+            }else{
+                store.commit("USER_INFO", response.data);
+                next();
+            }
+        })
+    }else{
+        next();
+    }
+})
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

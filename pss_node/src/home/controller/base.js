@@ -6,7 +6,7 @@ module.exports = class extends Base {
     if(user) {
       this.user = user;
     } else {
-      return this.fail("登录超期");
+      this.user = '';
     }
   }
 };

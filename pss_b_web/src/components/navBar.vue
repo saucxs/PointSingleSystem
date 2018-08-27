@@ -3,7 +3,7 @@
     <el-row type="flex" justify="center">
       <el-col :span="12">
         <div class="header-logo">
-          点单系统 ● 后台管理
+          点单系统 ● 后台管理{{userInfo}}
         </div>
       </el-col>
       <el-col :span="11">
@@ -12,7 +12,7 @@
             <div class="header-user-name">{{userInfo.username}}<i class="el-icon-caret-bottom el-icon--right"></i></div>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
-                <span @click="logout">退出</span>
+                <span @click="signOut()">退出</span>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -23,13 +23,21 @@
 </template>
 <script>
 import axios from 'axios';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: "VHeader",
   data() {
     return {
-        userInfo:""
+
     };
+  },
+  beforeRouteEnter: (to, from, next) => {
+    next(vm => {
+        vm.getUserInfo().then(res => {
+            console.log(res,'aaaaaaaaaaaaaaaaaaaaaaaaa');
+
+        })
+    });
   },
   computed: {
     ...mapGetters([
@@ -37,22 +45,28 @@ export default {
     ])
   },
   methods: {
-    logout() {
-        axios.post('/user/logout').then(function(res){
-          console.log(res,'res');
-        }).catch(function(err){
-            console.log(err,'err');
-        });
+      ...mapActions([
+          "getUserInfo",
+          "logOut"
+      ]),
+      signOut() {
+        this.logOut().then(res => {
+            console.log(res,'res');
+            if(res.errno == 0){
+                this.$router.push({ path: '/login' });
+                this.$store.commit("USER_INFO", {});
+            }
+        })
     }
   },
   created(){
-   var _this = this;
-   axios.post('/user/queryuser').then(function(res){
-        _this.userInfo = res.data.data;
-        console.log(_this.userInfo,'_this.userInfo');
-    }).catch(function(err){
-        console.log(err,'err');
-    });
+   // var _this = this;
+   // axios.post('/user/queryuser').then(function(res){
+   //      _this.userInfo = res.data;
+   //      console.log(_this.userInfo,'_this.userInfo');
+   //  }).catch(function(err){
+   //      console.log(err,'err');
+   //  });
   }
 };
 

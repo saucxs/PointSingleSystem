@@ -12,11 +12,18 @@ export default {
         ...mapGetters(["userInfo"])
     },
     data(){
+      return {
 
+      }
     },
     mounted() {
 
     },
+    methods:{
+        ...mapActions([
+            "getUserInfo",
+        ])
+    }
 }
 </script>
 

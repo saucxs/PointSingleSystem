@@ -69,7 +69,7 @@ exports.session = {
     cookie: {
       name: 'thinkjs',
       keys: ['werwer', 'werwer'],
-      signed: true,
+      signed: true
     }
   },
   redis: {

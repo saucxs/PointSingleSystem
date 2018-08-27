@@ -4,8 +4,9 @@ import {
 
 const state = {
     userInfo:{
-
-    }
+        username: '',
+        userId: ''
+    },
 };
 
 const mutations = {
