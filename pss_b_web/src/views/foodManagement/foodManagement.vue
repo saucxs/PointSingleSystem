@@ -146,7 +146,7 @@
              </template>
             </el-table-column>
         </el-table>
-            
+
         </div>
 
 
@@ -155,6 +155,7 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
 export default {
    data() {
       return {
@@ -179,44 +180,48 @@ export default {
         choseNum: 0,
       }
     },
+    computed: {
+        ...mapGetters([
+            'userInfo'
+        ])
+    },
     created(){
         var _this = this;
         var categorylevel = {
             shopId: '1'
         };
-        axios.post('/food/getCategory',categorylevel).then(function(res){
-            if(res.data.errno == 0){
-                _this.options = res.data.data;
+        this.getFoodCategory(categorylevel).then( res => {
+            if(res.errno == 0){
+                _this.options = res.data;
                 console.log(_this.options,'菜类目');
             }
-        }).catch(function(err){
-            console.log(err);
         });
         var param = {
             categoryId: '',
             foodName: '',
             shopId: ''
         }
-        axios.post('/food/getFood',param).then(function(res){
-            if(res.data.errno == 0){
-                _this.foodlcontent = res.data.data;
+        this.getFood(param).then(res => {
+            if(res.errno == 0){
+                _this.foodlcontent = res.data;
                 console.log(_this.foodlcontent,'菜详情');
                 for(var i =0;i< _this.foodlcontent.length;i++){
                     for(var j =0;j<_this.options.length;j++){
                         if( _this.foodlcontent[i].categoryId == _this.options[j].id){
-                            res.data.data[i].categoryName = _this.options[j].name;
+                            res.data[i].categoryName = _this.options[j].name;
                         }
                     }
                 }
-                _this.foodlcontent = res.data.data;
+                _this.foodlcontent = res.data;
             }
-           
-        }).catch(function(err){
-            console.log(err);
         });
-
     },
     methods:{
+        ...mapActions([
+            "getUserInfo",
+            "getFood",
+            "getFoodCategory"
+        ]),
        toggleSelection(rows) {
         if (rows) {
           rows.forEach(row => {
@@ -263,7 +268,7 @@ export default {
           })
       },
       confirm(item){
-        var _this = this; 
+        var _this = this;
         _this.dialogFormVisible = false;
         var food = {
             imgUrl: item.imgUrl,

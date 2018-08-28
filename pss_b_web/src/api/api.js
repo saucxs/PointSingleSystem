@@ -44,6 +44,15 @@ export default {
     },
     logOut: params => {
         return axios.post("/user/logout", params)
+    },
+    getOrder: params => {
+        return axios.post("/order/getOrder", params);
+    },
+    getFood: params => {
+        return axios.post("/food/getFood", params);
+    },
+    getFoodCategory: params => {
+        return axios.post("/food/getCategory", params);
     }
 
 

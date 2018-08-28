@@ -20,3 +20,24 @@ export const logOut = ({ commit }, params) => {
         return response;
     })
 }
+//get order
+export const getOrder = ({ commit }, params) => {
+    return Api.getOrder(params).then(response => {
+        commit(types.ORDER_LIST,response);
+        return response;
+    })
+}
+//get food
+export const getFood = ({ commit }, params) => {
+    return Api.getFood(params).then(response => {
+        commit(types.ORDER_LIST,response);
+        return response;
+    })
+}
+//get food cayegory
+export const getFoodCategory = ({ commit }, params) => {
+    return Api.getFoodCategory(params).then(response => {
+        commit(types.FOOD_CATEGORY,response);
+        return response;
+    })
+}

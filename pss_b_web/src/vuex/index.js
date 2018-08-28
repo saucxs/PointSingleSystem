@@ -5,6 +5,8 @@ import * as getters from './getters';
 
 // 引入业务逻辑模块
 import common from './modules/common'
+import order from './modules/order'
+import food from './modules/food'
 
 Vue.use(Vuex);
 
@@ -13,5 +15,7 @@ export default new Vuex.Store({
     getters,
     modules:{
         common,
+        order,
+        food
     }
 })

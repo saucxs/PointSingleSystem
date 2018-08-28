@@ -147,7 +147,7 @@
              </template>
             </el-table-column>
         </el-table>
-            
+
         </div>
 
 
@@ -156,6 +156,7 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
 export default {
    data() {
       return {
@@ -180,28 +181,32 @@ export default {
         choseNum: 0,
       }
     },
+    computed: {
+        ...mapGetters([
+            'userInfo',
+        ])
+    },
     created(){
         var _this = this;
         var param = {
             categoryId: '',
             foodName: '',
             shopId: '1'
-        }
-        axios.post('/order/getOrder',param).then(function(res){
-            if(res.data.errno == 0){
-                _this.orderlcontent = res.data.data;
+        };
+        this.getOrder(param).then(res => {
+            if(res.errno == 0){
+                _this.orderlcontent = res.data;
                 for(var i=0;i<_this.orderlcontent.length;i++){
                     _this.orderlcontent[i].content = JSON.parse(_this.orderlcontent[i].content);
                 }
-                console.log(_this.orderlcontent,'订单详情');
             }
-           
-        }).catch(function(err){
-            console.log(err);
-        });
-
+        })
     },
     methods:{
+        ...mapActions([
+            "getUserInfo",
+            "getOrder"
+        ]),
        toggleSelection(rows) {
         if (rows) {
           rows.forEach(row => {
@@ -233,7 +238,7 @@ export default {
 
       },
       confirm(item){
-        var _this = this; 
+        var _this = this;
         _this.dialogFormVisible = false;
         var food = {
             imgUrl: item.imgUrl,
