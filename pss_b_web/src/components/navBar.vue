@@ -3,7 +3,7 @@
     <el-row type="flex" justify="center">
       <el-col :span="12">
         <div class="header-logo">
-          点单系统 ● 后台管理{{userInfo}}
+          点单系统 ● 后台管理
         </div>
       </el-col>
       <el-col :span="11">
